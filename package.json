@@ -1,7 +1,7 @@
 {
   "name": "@hexlet/code",
   "version": "1.0.0",
-  "description": "Get difference between the two data structures",
+  "description": "Compares two configuration files and shows a difference.",
   "type": "module",
   "bin": {
     "gendiff": "bin/gendiff.js"
