@@ -1,3 +1,3 @@
-export const parse = (str) => {
-  return JSON.parse(str);
-}
+export const parse = (str) => JSON.parse(str);
+
+export default parse;

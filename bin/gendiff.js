@@ -1,5 +1,5 @@
-import { Command } from "commander";
-import { parseToJSON } from "../helpers/parse.js";
+import { Command } from 'commander';
+import { parseToJSON } from '../helpers/parse.js';
 
 const program = new Command();
 
@@ -13,6 +13,6 @@ program
   .action((filepath1, filepath2) => {
     const object1 = parseToJSON(filepath1);
     const object2 = parseToJSON(filepath2);
-  })
+  });
 
 program.parse(process.argv);
