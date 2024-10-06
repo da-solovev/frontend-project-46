@@ -1,5 +1,6 @@
 import { Command } from 'commander';
 import { parseToJSON } from '../helpers/parse.js';
+import genDiff from '../src/diff.js';
 
 const program = new Command();
 
@@ -13,6 +14,7 @@ program
   .action((filepath1, filepath2) => {
     const object1 = parseToJSON(filepath1);
     const object2 = parseToJSON(filepath2);
+    console.log(genDiff(object1, object2));
   });
 
 program.parse(process.argv);
