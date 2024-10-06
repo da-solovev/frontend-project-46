@@ -1,0 +1,11 @@
+name: run-tests
+on: 
+  - push
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    
+    steps:
+      - run: make install
+      - run: male lint
+      - run: make test
