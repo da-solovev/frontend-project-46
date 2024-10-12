@@ -4,18 +4,26 @@ import { genDiff } from '../src/diff.js';
 import { buildDiff } from '../src/format.js';
 
 // JSON
-const file1 = readFile('tree1_file1.json');
-const file2 = readFile('tree1_file2.json');
+const tree1_file1_JSON = readFile('tree1_file1.json');
+const tree1_file2_JSON = readFile('tree1_file2.json');
 
 // YAML
-//const file3 = readFile('file1_flat.yaml');
-//const file4 = readFile('file2_flat.yaml');
+const tree1_file1_YAML = readFile('tree1_file1.yaml');
+const tree1_file2_YAML = readFile('tree1_file2.yaml');
 
 const result1 = readFile('result1.txt');
 
-test('diff 2 tree json files', () => {
-  const object1 = parseJSON(file1);
-  const object2 = parseJSON(file2);
+test('diff 2 tree JSON files', () => {
+  const object1 = parseJSON(tree1_file1_JSON);
+  const object2 = parseJSON(tree1_file2_JSON);
+  const diff = genDiff(object1, object2);
+  const result = buildDiff(diff);
+  expect(result).toBe(result1);
+});
+
+test('diff 2 tree YAML files', () => {
+  const object1 = parseYaml(tree1_file1_YAML);
+  const object2 = parseYaml(tree1_file2_YAML);
   const diff = genDiff(object1, object2);
   const result = buildDiff(diff);
   expect(result).toBe(result1);
