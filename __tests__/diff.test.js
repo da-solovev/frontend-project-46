@@ -18,5 +18,6 @@ test('diff 2 tree json files', () => {
   const object2 = parseJSON(file2);
   const diff = genDiff(object1, object2);
   const result = buildDiff(diff);
-  expect(result).toEqual(result1);
+  expect(result).toBe(result1);
 });
+
