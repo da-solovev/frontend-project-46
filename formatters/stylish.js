@@ -1,4 +1,4 @@
-const fortamStylish = (item, depth) => {
+const fortamStylish = (item, depth = 1) => {
   const space = '    ';
 
   const displayStatus = ({ status }) => {
@@ -24,6 +24,4 @@ const fortamStylish = (item, depth) => {
   return start + body + end;
 };
 
-export const buildDiff = (diff, format = 'stylish') => {
-  return '{\n' + diff.map((key) => fortamStylish(key, 1)).join('') + '}';
-};
+export default fortamStylish;
