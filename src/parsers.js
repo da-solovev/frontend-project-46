@@ -8,9 +8,10 @@ export const parseYaml = (str) => yaml.load(str);
 export const getParser = (filepath) => {
   const fileExt = path.extname(filepath);
   if (fileExt === '.json') {
-    return parseJSON;
+    return parseJSON(filepath);
   }
   if (['.yaml', '.yml'].includes(fileExt)) {
-    return parseYaml;
+    return parseYaml(filepath);
   }
+  throw new Error(`File extension ${fileExt} not supported`);
 };
