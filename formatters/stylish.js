@@ -13,24 +13,29 @@ const objectToString = (item, depth) => {
   return `{${string}\n${calcIndent(depth)}}`;
 };
 
-const fortamStylish = (item, depth = 1) => {
-  const indent = calcIndent(depth).slice(0, -2);
-  if (item.type === 'added') {
-    return `${indent}+ ${item.key}: ${objectToString(item.value, depth)}\n`;
-  }
-  if (item.type === 'deleted') {
-    return `${indent}- ${item.key}: ${objectToString(item.value, depth)}\n`;
-  }
-  if (item.type === 'updated') {
-    return `${indent}- ${item.key}: ${objectToString(item.value1, depth)}\n${indent}+ ${item.key}: ${objectToString(item.value2, depth)}\n`;
-  }
-  if (item.type === 'default') {
-    return `${indent}  ${item.key}: ${objectToString(item.value, depth)}\n`;
-  }
-  const beginNode = `${indent}  ${item.key}: {\n`;
-  const node = item.children.map((key) => fortamStylish(key, depth + 1)).join('');
-  const endNode = `${indent}  }\n`;
-  return beginNode + node + endNode;
+const fortamStylish = (diff) => {
+  const iter = (item, depth = 1) => {
+    const indent = calcIndent(depth).slice(0, -2);
+    if (item.type === 'added') {
+      return `${indent}+ ${item.key}: ${objectToString(item.value, depth)}\n`;
+    }
+    if (item.type === 'deleted') {
+      return `${indent}- ${item.key}: ${objectToString(item.value, depth)}\n`;
+    }
+    if (item.type === 'updated') {
+      return `${indent}- ${item.key}: ${objectToString(item.value1, depth)}\n${indent}+ ${item.key}: ${objectToString(item.value2, depth)}\n`;
+    }
+    if (item.type === 'default') {
+      return `${indent}  ${item.key}: ${objectToString(item.value, depth)}\n`;
+    }
+    const beginNode = `${indent}  ${item.key}: {\n`;
+    const node = item.children.map((key) => iter(key, depth + 1)).join('');
+    const endNode = `${indent}  }\n`;
+    return beginNode + node + endNode;
+  };
+
+  const result = `{\n${diff.map((key) => iter(key)).join('')}}`;
+  return result;
 };
 
 export default fortamStylish;

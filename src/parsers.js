@@ -5,7 +5,7 @@ export const parseJSON = (str) => JSON.parse(str);
 
 export const parseYaml = (str) => yaml.load(str);
 
-export const getParser = (filepath) => {
+export const parse = (filepath) => {
   const fileExt = path.extname(filepath);
   if (fileExt === '.json') {
     return parseJSON(filepath);

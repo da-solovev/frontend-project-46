@@ -1,14 +1,18 @@
 import fortamStylish from './stylish.js';
+import formatPlain from './plain.js';
 
-const getFormatter = (format) => {
-  if (format === 'stylish') {
+const getFormatter = (nameFormat) => {
+  if (nameFormat === 'stylish') {
     return fortamStylish;
   }
-  if (format === 'plain') {
+  if (nameFormat === 'plain') {
     return formatPlain;
   }
+  throw new Error('Unknown format');
 };
 
-export const buildDiff = (diff, format = 'stylish') =>
-  // const formater = getFormatter(format);
-  `{\n${diff.map((key) => fortamStylish(key)).join('')}}`;
+const buildDiff = (diff, format = 'stylish') => {
+  const formatter = getFormatter(format);
+  return formatter(diff);
+};
+export default buildDiff;

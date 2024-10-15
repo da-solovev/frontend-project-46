@@ -3,7 +3,7 @@ import { isObject } from '../helpers/utils.js';
 
 export const genDiff = (object1, object2) => {
   const keys = _.union(Object.keys(object1), Object.keys(object2)).sort();
-  const diff = keys.map((key) => {
+  return keys.map((key) => {
     if (!Object.hasOwn(object1, key)) {
       return {
         type: 'added',
@@ -39,6 +39,5 @@ export const genDiff = (object1, object2) => {
       value: object1[key],
     };
   });
-
-  return diff;
 };
+export default genDiff;
