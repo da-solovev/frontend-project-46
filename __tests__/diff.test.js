@@ -13,6 +13,7 @@ const tree1_file2_YAML = readFile('tree1_file2.yaml');
 
 const result1 = readFile('result_stylish.txt');
 const result2 = readFile('result_plain.txt');
+const result3 = readFile('result_json.txt');
 
 test('diff 2 JSON files - format stylish', () => {
   const object1 = parseJSON(tree1_file1_JSON);
@@ -36,4 +37,12 @@ test('diff 2 JSON files - format plain', () => {
   const diff = genDiff(object1, object2);
   const result = buildDiff(diff, 'plain');
   expect(result).toBe(result2);
+});
+
+test('diff 2 JSON files - format json', () => {
+  const object1 = parseJSON(tree1_file1_JSON);
+  const object2 = parseJSON(tree1_file2_JSON);
+  const diff = genDiff(object1, object2);
+  const result = buildDiff(diff, 'json');
+  expect(result).toBe(result3);
 });
