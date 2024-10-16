@@ -8,6 +8,9 @@ const getFormatter = (nameFormat) => {
   if (nameFormat === 'plain') {
     return formatPlain;
   }
+  if (nameFormat === 'json') {
+    return JSON.stringify;
+  }
   throw new Error('Unknown format');
 };
 

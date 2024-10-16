@@ -28,10 +28,10 @@ const fortamStylish = (diff) => {
     if (item.type === 'default') {
       return `${indent}  ${item.key}: ${objectToString(item.value, depth)}\n`;
     }
-    const beginNode = `${indent}  ${item.key}: {\n`;
+    const begin = `${indent}  ${item.key}: {\n`;
     const node = item.children.map((key) => iter(key, depth + 1)).join('');
-    const endNode = `${indent}  }\n`;
-    return beginNode + node + endNode;
+    const end = `${indent}  }\n`;
+    return begin + node + end;
   };
 
   const result = `{\n${diff.map((key) => iter(key)).join('')}}`;
