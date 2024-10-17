@@ -1,5 +1,5 @@
 import getParseData from './parsers.js';
-import calcDiff from './diff.js';
+import calcDiff from './calcDiff.js';
 import buildDiff from '../formatters/index.js';
 
 const genDiff = (filepath1, filepath2, format) => {

@@ -2,7 +2,7 @@ import _ from 'lodash';
 import { isObject } from '../helpers/utils.js';
 
 export const calcDiff = (object1, object2) => {
-  const keys = _.union(Object.keys(object1), Object.keys(object2)).sort();
+  const keys = _.sortBy(Object.keys({ ...object1, ...object2 }));
   return keys.map((key) => {
     if (!Object.hasOwn(object1, key)) {
       return {

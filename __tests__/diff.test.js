@@ -41,5 +41,5 @@ test('diff 2 JSON files - format json', () => {
 });
 
 test('unknown format', () => {
-  expect(() => { genDiff(file1Json, file2Json, 'format123'); }).toThrowError();
+  expect(() => { genDiff(file1Json, file2Json, 'format123'); }).toThrow();
 });
