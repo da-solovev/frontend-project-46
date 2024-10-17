@@ -1,7 +1,7 @@
 import _ from 'lodash';
 import { isObject } from '../helpers/utils.js';
 
-export const genDiff = (object1, object2) => {
+export const calcDiff = (object1, object2) => {
   const keys = _.union(Object.keys(object1), Object.keys(object2)).sort();
   return keys.map((key) => {
     if (!Object.hasOwn(object1, key)) {
@@ -22,7 +22,7 @@ export const genDiff = (object1, object2) => {
       return {
         type: 'node',
         key,
-        children: genDiff(object1[key], object2[key]),
+        children: calcDiff(object1[key], object2[key]),
       };
     }
     if (object1[key] !== object2[key]) {
@@ -40,4 +40,4 @@ export const genDiff = (object1, object2) => {
     };
   });
 };
-export default genDiff;
+export default calcDiff;
