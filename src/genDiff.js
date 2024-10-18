@@ -1,6 +1,6 @@
 import { getParseData } from '../helpers/utils.js';
 import buildDiff from '../formatters/index.js';
-import calcDiff from './calcDiff.js';
+import { calcDiff } from './calcDiff.js';
 
 const genDiff = (filepath1, filepath2, format) => {
   const object1 = getParseData(filepath1);
