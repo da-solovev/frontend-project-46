@@ -1,7 +1,7 @@
 import path, { dirname } from 'path';
 import { fileURLToPath } from 'url';
 import fs from 'fs';
-import genDiff from '../src/index.js';
+import genDiff from '../src/genDiff.js';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
@@ -40,6 +40,18 @@ test('diff 2 JSON files - format json', () => {
   expect(result).toBe(result3);
 });
 
-test('unknown format', () => {
-  expect(() => { genDiff(file1Json, file2Json, 'format123'); }).toThrow();
+test('check empty object', () => {
+  const file1Empty = getFixturePath('file1_empty.json');
+  const file2Empty = getFixturePath('file2_empty.json');
+  const result = genDiff(file1Empty, file2Empty);
+  expect(result).toBe('{\n}');
+});
+
+test('check unknown format', () => {
+  expect(() => { genDiff(file1Json, file2Json, 'format123'); }).toThrow('Unknown format');
+});
+
+test('check unknown file ext', () => {
+  const file1 = getFixturePath('file1.ini');
+  expect(() => { genDiff(file1Json, file1); }).toThrow("File extension '.ini' not supported");
 });

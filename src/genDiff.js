@@ -1,4 +1,4 @@
-import getParseData from './parsers.js';
+import { getParseData } from '../helpers/utils.js';
 import buildDiff from '../formatters/index.js';
 import calcDiff from './calcDiff.js';
 
