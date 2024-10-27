@@ -1,7 +1,7 @@
-import { isObject } from '../helpers/utils.js';
+import _ from 'lodash';
 
 const formatValue = (value) => {
-  if (isObject(value)) {
+  if (_.isPlainObject(value)) {
     return '[complex value]';
   }
   if (typeof value === 'string') {
@@ -19,10 +19,10 @@ const iter = (item, property = []) => {
   if (item.type === 'deleted') {
     return `Property '${pathProperty}' was removed\n`;
   }
-  if (item.type === 'updated') {
+  if (item.type === 'changed') {
     return `Property '${pathProperty}' was updated. From ${formatValue(item.value1)} to ${formatValue(item.value2)}\n`;
   }
-  if (item.type === 'default') {
+  if (item.type === 'unchanged') {
     return '';
   }
   return item.children.map((key) => iter(key, [pathProperty])).join('');

@@ -1,31 +1,31 @@
-import { isObject } from '../helpers/utils.js';
+import _ from 'lodash';
 
 const space = '    ';
 
 const calcIndent = (depth) => space.repeat(depth);
 
-const objectToString = (item, depth) => {
-  if (!isObject(item)) {
+const stringify = (item, depth) => {
+  if (!_.isPlainObject(item)) {
     return `${item}`;
   }
   const children = Object.keys(item);
-  const string = children.map((key) => `\n${calcIndent(depth + 1)}${key}: ${objectToString(item[key], depth + 1)}`).join('');
+  const string = children.map((key) => `\n${calcIndent(depth + 1)}${key}: ${stringify(item[key], depth + 1)}`).join('');
   return `{${string}\n${calcIndent(depth)}}`;
 };
 
 const iter = (item, depth = 1) => {
   const indent = calcIndent(depth).slice(0, -2);
   if (item.type === 'added') {
-    return `${indent}+ ${item.key}: ${objectToString(item.value, depth)}\n`;
+    return `${indent}+ ${item.key}: ${stringify(item.value, depth)}\n`;
   }
   if (item.type === 'deleted') {
-    return `${indent}- ${item.key}: ${objectToString(item.value, depth)}\n`;
+    return `${indent}- ${item.key}: ${stringify(item.value, depth)}\n`;
   }
-  if (item.type === 'updated') {
-    return `${indent}- ${item.key}: ${objectToString(item.value1, depth)}\n${indent}+ ${item.key}: ${objectToString(item.value2, depth)}\n`;
+  if (item.type === 'changed') {
+    return `${indent}- ${item.key}: ${stringify(item.value1, depth)}\n${indent}+ ${item.key}: ${stringify(item.value2, depth)}\n`;
   }
-  if (item.type === 'default') {
-    return `${indent}  ${item.key}: ${objectToString(item.value, depth)}\n`;
+  if (item.type === 'unchanged') {
+    return `${indent}  ${item.key}: ${stringify(item.value, depth)}\n`;
   }
   const begin = `${indent}  ${item.key}: {\n`;
   const node = item.children.map((key) => iter(key, depth + 1)).join('');

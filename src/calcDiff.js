@@ -1,5 +1,4 @@
 import _ from 'lodash';
-import { isObject } from '../helpers/utils.js';
 
 export const calcDiff = (object1, object2) => {
   const keys = _.sortBy(Object.keys({ ...object1, ...object2 }));
@@ -18,23 +17,23 @@ export const calcDiff = (object1, object2) => {
         value: object1[key],
       };
     }
-    if (isObject(object1[key]) && isObject(object2[key])) {
+    if (_.isPlainObject(object1[key]) && _.isPlainObject(object2[key])) {
       return {
-        type: 'node',
+        type: 'nested',
         key,
         children: calcDiff(object1[key], object2[key]),
       };
     }
-    if (object1[key] !== object2[key]) {
+    if (!_.isEqual(object1[key], object2[key])) {
       return {
-        type: 'updated',
+        type: 'changed',
         key,
         value1: object1[key],
         value2: object2[key],
       };
     }
     return {
-      type: 'default',
+      type: 'unchanged',
       key,
       value: object1[key],
     };
